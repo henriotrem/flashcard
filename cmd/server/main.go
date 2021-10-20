@@ -5,6 +5,7 @@ import (
 
 	"github.com/henriotrem/flashcard/internal/card"
 	"github.com/henriotrem/flashcard/internal/db"
+	"github.com/henriotrem/flashcard/internal/transport/grpc"
 )
 
 func Run() error {
@@ -20,7 +21,12 @@ func Run() error {
 		return err
 	}
 
-	_ = card.New(cardStore)
+	cardService := card.New(cardStore)
+	cardHandler := grpc.New(cardService)
+
+	if err := cardHandler.Serve(); err != nil {
+		return err
+	}
 
 	return nil
 }

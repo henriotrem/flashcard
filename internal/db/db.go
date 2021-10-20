@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/henriotrem/flashcard/internal/card"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -38,16 +37,4 @@ func New() (Store, error) {
 	return Store{
 		db: db,
 	}, nil
-}
-
-func (s Store) AddCard(cd card.Card) (card.Card, error) {
-	return card.Card{}, nil
-}
-
-func (s Store) GetCard(id string) (card.Card, error) {
-	return card.Card{}, nil
-}
-
-func (s Store) DeleteCard(id string) error {
-	return nil
 }

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "./card/v1/;card";
+
+message Card {
+    string id = 1;
+    string label = 2;
+    string type = 3;
+    string content = 4;
+    int64 created = 5;
+    int64 modified =6;
+}
+
+service CardService {
+    rpc AddCard (AddCardRequest) returns (AddCardResponse);
+    rpc GetCard (GetCardRequest) returns (GetCardResponse);
+    rpc DeleteCard (DeleteCardRequest) returns (DeleteCardResponse);
+}
+
+message AddCardRequest {
+    Card card = 1;
+}
+
+message AddCardResponse {
+    Card card = 1;
+}
+
+message GetCardRequest {
+    string id = 1;
+}
+
+message GetCardResponse {
+    Card card = 1;
+}
+
+message DeleteCardRequest {
+    string id = 1;
+}
+
+message DeleteCardResponse {
+    string status = 1;
+}
