@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/jmoiron/sqlx"
@@ -31,6 +32,7 @@ func New() (Store, error) {
 
 	db, err := sqlx.Connect("postgres", connectionStr)
 	if err != nil {
+		log.Println("Error when connecting to DB")
 		return Store{}, err
 	}
 

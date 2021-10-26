@@ -11,20 +11,18 @@ import (
 func Run() error {
 	cardStore, err := db.New()
 	if err != nil {
-		log.Println("Error when starting the DB")
 		return err
 	}
 
 	err = cardStore.Migrate()
 	if err != nil {
-		log.Println("Error when performing the DB migration")
 		return err
 	}
 
 	cardService := card.New(cardStore)
 	cardHandler := grpc.New(cardService)
 
-	if err := cardHandler.Serve(); err != nil {
+	if err = cardHandler.Serve(); err != nil {
 		return err
 	}
 

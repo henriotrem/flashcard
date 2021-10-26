@@ -33,6 +33,7 @@ func (s *Store) Migrate() error {
 			log.Println("No migration changes applied")
 			return nil
 		} else {
+			log.Println("Error when applying the migration")
 			return err
 		}
 	}

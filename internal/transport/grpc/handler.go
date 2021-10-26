@@ -48,14 +48,37 @@ func (h Handler) Serve() error {
 
 func (h Handler) AddCard(context context.Context, req *cd.AddCardRequest) (*cd.AddCardResponse, error) {
 	log.Println("Add Card Method")
+	newCard, err := h.CardService.AddCard(context, card.Card{
+		ID:      req.Card.Id,
+		Content: req.Card.Content,
+	})
+	if err != nil {
+		log.Println("Error when inserting the card")
+		return &cd.AddCardResponse{}, err
+	}
 	return &cd.AddCardResponse{
-		Card: req.Card,
+		Card: &cd.Card{
+			Id:      newCard.ID,
+			Content: newCard.Content,
+		},
 	}, nil
 }
 
 func (h Handler) GetCard(context context.Context, req *cd.GetCardRequest) (*cd.GetCardResponse, error) {
 	log.Println("Get Card Method")
-	return &cd.GetCardResponse{}, nil
+
+	card, err := h.CardService.GetCard(context, req.Id)
+	if err != nil {
+		log.Println("Error when fetching the card")
+		return &cd.GetCardResponse{}, err
+	}
+
+	return &cd.GetCardResponse{
+		Card: &cd.Card{
+			Id:      card.ID,
+			Content: card.Content,
+		},
+	}, nil
 }
 
 func (h Handler) DeleteCard(context context.Context, req *cd.DeleteCardRequest) (*cd.DeleteCardResponse, error) {
